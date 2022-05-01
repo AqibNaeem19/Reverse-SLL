@@ -108,6 +108,18 @@ node* reverse(node* &head){
   return previousPointer;
 }
 
+void destroyList(node* &head){
+  if(head == NULL) {
+    return;
+  }
+  
+  while(head != NULL){
+    node* nextNode = head -> next;
+    delete head;
+    head = nextNode;
+  }
+}
+
 int main(){
     node* head = NULL;
     insertAtHead(head, 20);
@@ -118,6 +130,10 @@ int main(){
 
     // Reverse the list
     reverse(head);
+    printLinkedList(head);
+    
+    // Free the memory allocation
+    destroy(head);
     printLinkedList(head);
     return 1;
 }
