@@ -89,21 +89,35 @@ void printLinkedList(node* head){
     }
 }
 
+node* reverse(node* &head){
+  // Reverse using 3 pointers
+  node* previousPointer = NULL;
+  node* currentPointer = head;
+  node* nextPointer;
+
+  while( currentPointer != NULL){
+    // Reversing the pointers
+    nextPointer = currentPointer -> next;
+    currentPointer -> next = previousPointer;
+
+    // Moving the pointers to next node
+    previousPointer = currentPointer;
+    currentPointer = nextPointer;
+  }
+  head = previousPointer;
+  return previousPointer;
+}
+
 int main(){
     node* head = NULL;
-    int i = 0;
-    //insertAtHead(head, 20);
-    while(i<10){
-        insertAtTail(head, i);
-        i++;
-    }
+    insertAtHead(head, 20);
+    insertAtHead(head, 30);
+    insertAtHead(head, 40);
+    insertAtHead(head, 50);
     printLinkedList(head);
-    searchLinkedList(head, 3);
-    printLinkedList(head);
-    // Delete all the nodes
-    for(int i = 0; i< 10; i++){
-        deleteNode(head, i);
-    }
+
+    // Reverse the list
+    reverse(head);
     printLinkedList(head);
     return 1;
 }
