@@ -89,7 +89,7 @@ void printLinkedList(node* head){
     }
 }
 
-node* reverse(node* &head){
+node* reverse_iterative(node* &head){
   // Reverse using 3 pointers
   node* previousPointer = NULL;
   node* currentPointer = head;
@@ -106,6 +106,19 @@ node* reverse(node* &head){
   }
   head = previousPointer;
   return previousPointer;
+}
+
+node* reverse_recursive(node* &head){
+    // Base case
+    if( head == NULL || head -> next == NULL){
+        return head;
+    }
+
+    node* newHead = reverse_recursive( head -> next );
+    head -> next -> next = head;
+    head -> next = NULL;
+
+    return newHead;
 }
 
 void destroyList(node* &head){
@@ -129,11 +142,14 @@ int main(){
     printLinkedList(head);
 
     // Reverse the list
-    reverse(head);
-    printLinkedList(head);
+    // reverse_recursive(head);
+    node* newHead = reverse_recursive(head);
+    printLinkedList(newHead);
     
     // Free the memory allocation
-    destroy(head);
+    destroyList(newHead);
+    printLinkedList(newHead);
+    destroyList(head);
     printLinkedList(head);
     return 1;
 }
